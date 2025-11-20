@@ -12,6 +12,7 @@ import com.example.parking.repo.ConfiguracionRepository;
 import com.example.parking.repo.EstacionadoRepository;
 import com.example.parking.repo.EstacionamientoRepository;
 import com.example.parking.response.ApiResponse;
+import com.example.parking.util.UtilPatente;
 
 import lombok.RequiredArgsConstructor;
 
@@ -58,6 +59,11 @@ public class EstacionadoController {
             return new ResponseEntity<>(new ApiResponse("Debe ingresar una patente"), HttpStatus.BAD_REQUEST);
         }
 
+        if (!UtilPatente.esPatenteValida(patenteDto.getPatente())) {
+            return new ResponseEntity<>(new ApiResponse("Ingrese patente valida"),
+                    HttpStatus.BAD_REQUEST);
+        }
+
         List<Estacionamiento> estacionamientosList = estacionamientoRepository.findAll();
         Estacionamiento estacionamiento = new Estacionamiento();
 
@@ -95,6 +101,11 @@ public class EstacionadoController {
 
         if (patenteDto.getPatente().trim().equalsIgnoreCase("")) {
             return new ResponseEntity<>(new ApiResponse("El vehiculo no se encuentra estacionado"),
+                    HttpStatus.BAD_REQUEST);
+        }
+
+        if (!UtilPatente.esPatenteValida(patenteDto.getPatente())) {
+            return new ResponseEntity<>(new ApiResponse("Ingrese patente valida"),
                     HttpStatus.BAD_REQUEST);
         }
 
