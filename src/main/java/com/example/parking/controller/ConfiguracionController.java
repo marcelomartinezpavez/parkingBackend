@@ -12,7 +12,8 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/configuraciones")
-@CrossOrigin(origins = "http://186.64.113.173")
+// @CrossOrigin(origins = "http://186.64.113.173")
+@CrossOrigin(origins = "${parking.server.url}")
 // @CrossOrigin(origins = "http://localhost:5173")
 @RequiredArgsConstructor
 public class ConfiguracionController {

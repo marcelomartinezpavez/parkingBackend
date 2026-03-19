@@ -11,7 +11,8 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/login")
-@CrossOrigin(origins = "http://186.64.113.173")
+// @CrossOrigin(origins = "http://186.64.113.173")
+@CrossOrigin(origins = "${parking.server.url}")
 // @CrossOrigin(origins = "http://localhost:5173")
 public class LoginController {
 
