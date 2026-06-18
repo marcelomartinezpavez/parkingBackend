@@ -8,8 +8,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-11-20T17:28:48-0300",
-    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 11.0.0.2 (Oracle Corporation)"
+    date = "2026-04-17T22:51:51-0400",
+    comments = "version: 1.5.5.Final, compiler: Eclipse JDT (IDE) 3.46.0.v20260407-0427, environment: Java 21.0.10 (Eclipse Adoptium)"
 )
 @Component
 public class EstacionadoMapperImpl implements EstacionadoMapper {
@@ -23,18 +23,18 @@ public class EstacionadoMapperImpl implements EstacionadoMapper {
         EstacionadoDTO.EstacionadoDTOBuilder estacionadoDTO = EstacionadoDTO.builder();
 
         estacionadoDTO.estacionamientoId( entityEstacionamientoId( entity ) );
-        estacionadoDTO.id( entity.getId() );
         if ( entity.getEstado() != null ) {
             estacionadoDTO.estado( entity.getEstado().name() );
         }
         estacionadoDTO.fechaIngreso( entity.getFechaIngreso() );
         estacionadoDTO.fechaSalida( entity.getFechaSalida() );
-        estacionadoDTO.patente( entity.getPatente() );
-        estacionadoDTO.valorTotal( entity.getValorTotal() );
+        estacionadoDTO.id( entity.getId() );
         estacionadoDTO.minutosEstacionado( entity.getMinutosEstacionado() );
+        estacionadoDTO.patente( entity.getPatente() );
         if ( entity.getTipoPago() != null ) {
             estacionadoDTO.tipoPago( entity.getTipoPago().name() );
         }
+        estacionadoDTO.valorTotal( entity.getValorTotal() );
 
         return estacionadoDTO.build();
     }
@@ -47,18 +47,18 @@ public class EstacionadoMapperImpl implements EstacionadoMapper {
 
         Estacionado.EstacionadoBuilder estacionado = Estacionado.builder();
 
-        estacionado.id( dto.getId() );
         if ( dto.getEstado() != null ) {
             estacionado.estado( Enum.valueOf( Estacionado.EstadoEstacionamiento.class, dto.getEstado() ) );
         }
         estacionado.fechaIngreso( dto.getFechaIngreso() );
         estacionado.fechaSalida( dto.getFechaSalida() );
-        estacionado.patente( dto.getPatente() );
-        estacionado.valorTotal( dto.getValorTotal() );
+        estacionado.id( dto.getId() );
         estacionado.minutosEstacionado( dto.getMinutosEstacionado() );
+        estacionado.patente( dto.getPatente() );
         if ( dto.getTipoPago() != null ) {
             estacionado.tipoPago( Enum.valueOf( Estacionado.TipoPago.class, dto.getTipoPago() ) );
         }
+        estacionado.valorTotal( dto.getValorTotal() );
 
         estacionado.estacionamiento( estacionamientoFromId(dto.getEstacionamientoId()) );
 

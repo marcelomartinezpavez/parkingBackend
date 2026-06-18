@@ -8,8 +8,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-11-20T17:28:48-0300",
-    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 11.0.0.2 (Oracle Corporation)"
+    date = "2026-04-17T22:51:51-0400",
+    comments = "version: 1.5.5.Final, compiler: Eclipse JDT (IDE) 3.46.0.v20260407-0427, environment: Java 21.0.10 (Eclipse Adoptium)"
 )
 @Component
 public class ConfiguracionMapperImpl implements ConfiguracionMapper {
@@ -23,15 +23,15 @@ public class ConfiguracionMapperImpl implements ConfiguracionMapper {
         ConfiguracionDTO.ConfiguracionDTOBuilder configuracionDTO = ConfiguracionDTO.builder();
 
         configuracionDTO.estacionamientoId( entityEstacionamientoId( entity ) );
-        configuracionDTO.id( entity.getId() );
         configuracionDTO.habilitado( entity.isHabilitado() );
+        configuracionDTO.id( entity.getId() );
+        configuracionDTO.tiempoAumento( entity.getTiempoAumento() );
+        configuracionDTO.tiempoMinimoMinutos( entity.getTiempoMinimoMinutos() );
         configuracionDTO.valorDia( entity.getValorDia() );
         configuracionDTO.valorHora( entity.getValorHora() );
         configuracionDTO.valorMes( entity.getValorMes() );
-        configuracionDTO.valorMinuto( entity.getValorMinuto() );
-        configuracionDTO.tiempoMinimoMinutos( entity.getTiempoMinimoMinutos() );
         configuracionDTO.valorMinimo( entity.getValorMinimo() );
-        configuracionDTO.tiempoAumento( entity.getTiempoAumento() );
+        configuracionDTO.valorMinuto( entity.getValorMinuto() );
 
         return configuracionDTO.build();
     }
@@ -45,15 +45,15 @@ public class ConfiguracionMapperImpl implements ConfiguracionMapper {
         Configuracion.ConfiguracionBuilder configuracion = Configuracion.builder();
 
         configuracion.estacionamiento( configuracionDTOToEstacionamiento( dto ) );
-        configuracion.id( dto.getId() );
         configuracion.habilitado( dto.isHabilitado() );
+        configuracion.id( dto.getId() );
+        configuracion.tiempoAumento( dto.getTiempoAumento() );
+        configuracion.tiempoMinimoMinutos( dto.getTiempoMinimoMinutos() );
         configuracion.valorDia( dto.getValorDia() );
         configuracion.valorHora( dto.getValorHora() );
         configuracion.valorMes( dto.getValorMes() );
-        configuracion.valorMinuto( dto.getValorMinuto() );
-        configuracion.tiempoMinimoMinutos( dto.getTiempoMinimoMinutos() );
         configuracion.valorMinimo( dto.getValorMinimo() );
-        configuracion.tiempoAumento( dto.getTiempoAumento() );
+        configuracion.valorMinuto( dto.getValorMinuto() );
 
         return configuracion.build();
     }

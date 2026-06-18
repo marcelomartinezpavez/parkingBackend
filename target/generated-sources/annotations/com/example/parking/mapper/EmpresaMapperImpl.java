@@ -7,8 +7,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-11-20T17:28:48-0300",
-    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 11.0.0.2 (Oracle Corporation)"
+    date = "2026-04-17T22:51:50-0400",
+    comments = "version: 1.5.5.Final, compiler: Eclipse JDT (IDE) 3.46.0.v20260407-0427, environment: Java 21.0.10 (Eclipse Adoptium)"
 )
 @Component
 public class EmpresaMapperImpl implements EmpresaMapper {
@@ -21,8 +21,8 @@ public class EmpresaMapperImpl implements EmpresaMapper {
 
         EmpresaDTO.EmpresaDTOBuilder empresaDTO = EmpresaDTO.builder();
 
-        empresaDTO.id( entity.getId() );
         empresaDTO.direccion( entity.getDireccion() );
+        empresaDTO.id( entity.getId() );
         empresaDTO.nombre( entity.getNombre() );
         empresaDTO.rut( entity.getRut() );
 
@@ -37,8 +37,8 @@ public class EmpresaMapperImpl implements EmpresaMapper {
 
         Empresa.EmpresaBuilder empresa = Empresa.builder();
 
-        empresa.id( dto.getId() );
         empresa.direccion( dto.getDireccion() );
+        empresa.id( dto.getId() );
         empresa.nombre( dto.getNombre() );
         empresa.rut( dto.getRut() );
 

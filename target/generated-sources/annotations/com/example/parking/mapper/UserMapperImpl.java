@@ -7,8 +7,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-11-20T17:28:48-0300",
-    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 11.0.0.2 (Oracle Corporation)"
+    date = "2026-04-17T22:51:51-0400",
+    comments = "version: 1.5.5.Final, compiler: Eclipse JDT (IDE) 3.46.0.v20260407-0427, environment: Java 21.0.10 (Eclipse Adoptium)"
 )
 @Component
 public class UserMapperImpl implements UserMapper {
@@ -21,12 +21,12 @@ public class UserMapperImpl implements UserMapper {
 
         UserDTO.UserDTOBuilder userDTO = UserDTO.builder();
 
-        userDTO.id( entity.getId() );
+        userDTO.empresaId( entity.getEmpresaId() );
         userDTO.habilitado( entity.isHabilitado() );
+        userDTO.id( entity.getId() );
         userDTO.pass( entity.getPass() );
         userDTO.rol( entity.getRol() );
         userDTO.users( entity.getUsers() );
-        userDTO.empresaId( entity.getEmpresaId() );
 
         return userDTO.build();
     }
@@ -39,12 +39,12 @@ public class UserMapperImpl implements UserMapper {
 
         User.UserBuilder user = User.builder();
 
-        user.id( dto.getId() );
+        user.empresaId( dto.getEmpresaId() );
         user.habilitado( dto.isHabilitado() );
+        user.id( dto.getId() );
         user.pass( dto.getPass() );
         user.rol( dto.getRol() );
         user.users( dto.getUsers() );
-        user.empresaId( dto.getEmpresaId() );
 
         return user.build();
     }
