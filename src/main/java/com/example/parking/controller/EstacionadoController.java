@@ -85,7 +85,7 @@ public class EstacionadoController {
         estacionado.setEstado(Estacionado.EstadoEstacionamiento.ESTACIONADO);
         estacionado.setFechaIngreso(LocalDateTime.now(ZoneId.of("America/Santiago")));
         estacionado.setEstacionamiento(estacionamiento);
-        estacionadoRepository.save(estacionado);
+        Estacionado saved = estacionadoRepository.save(estacionado);
         estacionamiento.setCantidadLibre(estacionamiento.getCantidadLibre() - 1);
         estacionamiento.setCantidadOcupado(estacionamiento.getCantidadOcupado() + 1);
         try {
@@ -93,7 +93,7 @@ public class EstacionadoController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return new ResponseEntity<>("Vehiculo ingresado", HttpStatus.OK);
+        return new ResponseEntity<>(estacionadoMapper.toDto(saved), HttpStatus.OK);
 
     }
 
