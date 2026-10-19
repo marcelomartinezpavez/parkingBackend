@@ -19,6 +19,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -53,6 +55,7 @@ public class EstacionadoController {
     }
 
     @PostMapping("/ingresar")
+    @Transactional(isolation = Isolation.SERIALIZABLE)
     public ResponseEntity<?> ingresar(@RequestBody PatenteDto patenteDto) {
         System.out.println("/INGRESAR");
         System.out.println(patenteDto.getPatente());
@@ -112,6 +115,12 @@ public class EstacionadoController {
 
         Estacionado findEstacionado = estacionadoRepository
                 .findByEstadoAndPatente(Estacionado.EstadoEstacionamiento.ESTACIONADO, patenteDto.getPatente());
+
+        if (findEstacionado == null) {
+            return new ResponseEntity<>(new ApiResponse("Patente " + patenteDto.getPatente() + "\nno se encuentra estacionada"),
+                    HttpStatus.NOT_FOUND);
+        }
+
         List<Estacionamiento> estacionamientosList = estacionamientoRepository.findAll();
         Estacionamiento estacionamiento = new Estacionamiento();
         if (!estacionamientosList.isEmpty()) {
@@ -129,7 +138,7 @@ public class EstacionadoController {
 
         findEstacionado.setEstado(Estacionado.EstadoEstacionamiento.SALIDA);
         findEstacionado.setFechaSalida(LocalDateTime.now(ZoneId.of("America/Santiago")));
-        findEstacionado.setTipoPago(Estacionado.TipoPago.DEBITO);
+        findEstacionado.setTipoPago(Estacionado.TipoPago.EFECTIVO);
 
         int minutos = (int) Duration.between(findEstacionado.getFechaIngreso(), findEstacionado.getFechaSalida())
                 .toMinutes();
