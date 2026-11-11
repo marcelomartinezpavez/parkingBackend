@@ -69,18 +69,24 @@ public class EstacionadoController {
         }
 
         List<Estacionamiento> estacionamientosList = estacionamientoRepository.findAll();
-        Estacionamiento estacionamiento = new Estacionamiento();
+        Estacionamiento estacionamiento;
+        if (!estacionamientosList.isEmpty()) {
+            estacionamiento = estacionamientoRepository.findByIdForUpdate(estacionamientosList.get(0).getId());
+            if (estacionamiento.getCantidadLibre() <= 0) {
+                return new ResponseEntity<>(new ApiResponse("No hay cupos disponibles"), HttpStatus.BAD_REQUEST);
+            }
+        } else {
+            return new ResponseEntity<>(new ApiResponse("No se encontro el estacionamiento"),
+                    HttpStatus.BAD_REQUEST);
+        }
 
         Estacionado findEstacionado = estacionadoRepository
-                .findByEstadoAndPatente(Estacionado.EstadoEstacionamiento.ESTACIONADO, patenteDto.getPatente());
+                .findByEstadoAndPatenteForUpdate(Estacionado.EstadoEstacionamiento.ESTACIONADO,
+                        patenteDto.getPatente());
 
         if (findEstacionado != null) {
             return new ResponseEntity<>(new ApiResponse("El vehiculo se encuentra estacionado"),
                     HttpStatus.BAD_REQUEST);
-        }
-
-        if (!estacionamientosList.isEmpty()) {
-            estacionamiento = estacionamientosList.get(0);
         }
 
         Estacionado estacionado = new Estacionado();
@@ -101,9 +107,10 @@ public class EstacionadoController {
     }
 
     @PostMapping("/sacar")
+    @Transactional(isolation = Isolation.SERIALIZABLE)
     public ResponseEntity<?> sacar(@RequestBody PatenteDto patenteDto) {
 
-        if (patenteDto.getPatente().trim().equalsIgnoreCase("")) {
+        if (patenteDto.getPatente() == null || patenteDto.getPatente().trim().isEmpty()) {
             return new ResponseEntity<>(new ApiResponse("El vehiculo no se encuentra estacionado"),
                     HttpStatus.BAD_REQUEST);
         }
@@ -114,7 +121,8 @@ public class EstacionadoController {
         }
 
         Estacionado findEstacionado = estacionadoRepository
-                .findByEstadoAndPatente(Estacionado.EstadoEstacionamiento.ESTACIONADO, patenteDto.getPatente());
+                .findByEstadoAndPatenteForUpdate(Estacionado.EstadoEstacionamiento.ESTACIONADO,
+                        patenteDto.getPatente());
 
         if (findEstacionado == null) {
             return new ResponseEntity<>(new ApiResponse("Patente " + patenteDto.getPatente() + "\nno se encuentra estacionada"),
@@ -122,9 +130,9 @@ public class EstacionadoController {
         }
 
         List<Estacionamiento> estacionamientosList = estacionamientoRepository.findAll();
-        Estacionamiento estacionamiento = new Estacionamiento();
+        Estacionamiento estacionamiento;
         if (!estacionamientosList.isEmpty()) {
-            estacionamiento = estacionamientosList.get(0);
+            estacionamiento = estacionamientoRepository.findByIdForUpdate(estacionamientosList.get(0).getId());
         } else {
             return new ResponseEntity<>(new ApiResponse("No se encontro el estacionamiento"),
                     HttpStatus.BAD_REQUEST);
